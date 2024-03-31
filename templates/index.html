@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chatbot</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+        color: #333;
+    }
+
+    .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .heading {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .chat-container {
+        width: 100%;
+        max-width: 600px;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+        overflow-y: auto;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        height: 300px; /* Set a fixed height for scrolling */
+    }
+
+    .input-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .input-box {
+        flex: 1;
+        padding: 10px 15px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        font-size: 16px;
+        outline: none;
+        transition: border-color 0.3s ease;
+    }
+
+    .input-box:focus {
+        border-color: #007bff;
+    }
+
+    .send-button,
+    .voice-button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .send-button:hover,
+    .voice-button:hover {
+        background-color: #0056b3;
+    }
+
+    .voice-button {
+        background-color: #28a745;
+    }
+
+    .message {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .user-message {
+        background-color: #007bff;
+        color: #fff;
+        text-align: right;
+    }
+
+    .bot-message {
+        background-color: #28a745;
+        color: #fff;
+    }
+</style>
+</head>
+<body>
+<div class="heading">
+    <h1> CHATBOT!</h1>
+  <div class="container">
+    <div class="chat-container" id="chat-container"></div>
+    <div class="input-container">
+        <input type="text" id="user-input" class="input-box" name = "message" placeholder="Type your message...">
+        <button onclick="sendMessage()" class="send-button">Send</button>
+        <button onclick="startVoiceInput()" class="voice-button">Voice Input</button>
+    </div>
+   </div>
+</div>
+<script>
+    var recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+
+    recognition.onresult = function(event) {
+        var interimTranscripts = '';
+        for (var i = event.resultIndex; i < event.results.length; ++i) {
+            if (event.results[i].isFinal) {
+                var transcript = event.results[i][0].transcript;
+                document.getElementById('user-input').value = transcript;
+            } else {
+                interimTranscripts += event.results[i][0].transcript;
+            }
+        }
+    };
+
+    function startVoiceInput() {
+        recognition.start();
+    }
+
+    function sendMessage() {
+        var userInput = document.getElementById("user-input").value;
+        var chatContainer = document.getElementById("chat-container");
+        var userMessage = document.createElement("div");
+        userMessage.innerHTML = "<strong>You:</strong> " + userInput;
+        chatContainer.appendChild(userMessage);
+        // Replace the following line with your chatbot logic to generate a response
+        var botResponse = "This is a sample response from the chatbot.";
+        var botMessage = document.createElement("div");
+        botMessage.innerHTML = "<strong>Chatbot:</strong> " + botResponse;
+        chatContainer.appendChild(botMessage);
+        document.getElementById("user-input").value = ""; // Clear input box
+        chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll to bottom
+    }
+</script>
+</body>
+</html>

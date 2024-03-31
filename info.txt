@@ -1,0 +1,23 @@
+bussiness model for Personal Assistant.
+Search engine :https://youtu.be/ifT6npY39Dw?si=oFbmZz1bj-EWSh2h
+WORKING
+customizable name
+Search Engine 
+(it provide anonymity, it provides best shopping option by searching different sites)
+just like talking tom ek feelings share krne wala feature( we give different voice options)
+reminder (vo bolega)
+
+
+
+
+
+
+
+names:
+"Karyodhata" (कार्योधाता)
+
+This Sanskrit word combines "karya" (task) and "udhata" (assistant), signifying a bot that serves as an efficient assistant in tasks.
+
+
+
+
